@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np 
-from typing import Optional, List, 
+from typing import Optional, List
 
 def fold_lightcurve(time, flux, error, period, found_phase : Optional[int] = 1  verbosebool = False):
     """
