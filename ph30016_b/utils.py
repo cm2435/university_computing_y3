@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np 
-from typing import Optional, List, 
+from typing import Optional, List
 
-def fold_lightcurve(time, flux, error, period, found_phase : Optional[int] = 1  verbosebool = False):
+def fold_lightcurve(time, flux, error, period, found_phase : Optional[int] = 1,  verbose: bool = False):
     """
     Folds the lightcurve given a period.
     time: input time (same unit as period)
@@ -15,10 +15,6 @@ def fold_lightcurve(time, flux, error, period, found_phase : Optional[int] = 1  
     data = pd.DataFrame({'time': time, 'flux': flux, 'error': error})
     #create the phase 
     data['phase'] = data.apply(lambda x: ((x.time/ period) - np.floor(x.time / period)), axis=1)
-    data['found_phase_delta'] = data['phase'] - found_phase
-
-    time_to_return = data.sort_values('found_phase_delta')['time'].head(5)
-
     if verbose: 
         print(data.head(10))
 
@@ -27,7 +23,7 @@ def fold_lightcurve(time, flux, error, period, found_phase : Optional[int] = 1  
     flux_long = np.concatenate((flux, flux, flux))
     err_long = np.concatenate((error, error, error))
     
-    return(data['time'], phase_long, flux_long, err_long, time_to_return)
+    return(data['time'], phase_long, flux_long, err_long)
 
 
 def model_curve(x, d, transit_b, transit_e) -> float: 
