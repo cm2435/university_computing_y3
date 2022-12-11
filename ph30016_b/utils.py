@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np 
 from typing import Optional, List
 
-def fold_lightcurve(time, flux, error, period, found_phase : Optional[int] = 1,  verbose: bool = False):
+def fold_lightcurve(time, flux, error, period, verbose: bool = False):
     """
     Folds the lightcurve given a period.
     time: input time (same unit as period)
@@ -28,6 +28,7 @@ def fold_lightcurve(time, flux, error, period, found_phase : Optional[int] = 1, 
 
 def model_curve(x, d, transit_b, transit_e) -> float: 
     """
+    Fit a qu
     """
     m = (16 * (1-d) / (transit_e - transit_b)**4) * (x - (transit_e+transit_b) / 2)**4 + d
     return m 
