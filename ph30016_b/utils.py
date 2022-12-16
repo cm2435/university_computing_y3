@@ -9,6 +9,14 @@ import pymc3_ext as pmx
 from celerite2.theano import terms, GaussianProcess
 import exoplanet as xo 
 
+def find_average_orbital_flux(luminosity, semimajor, eccentricity):
+    #Convert all items to si 
+    luminosity = luminosity * 3.846e26
+    semimajor = semimajor * 1.495978707e11
+
+    F = luminosity / ((4 * np.pi * semimajor**2) * (np.sqrt(1 - eccentricity**2)))
+    return F
+    
 
 def fold_lightcurve(time, flux, error, period, verbose: bool = False):
     """
